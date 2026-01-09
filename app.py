@@ -42,6 +42,14 @@ def home():
         "message": "HDF AI Assistant is running"
     }
 
+
+@app.get('/')
+def home():
+    return {
+        "status": "ok",
+        "message": "HDF AI Assistant is running"
+    }
+
 @app.post("/inference")
 async def inference():
     request_data = request.get_json()
