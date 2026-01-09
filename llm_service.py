@@ -149,8 +149,7 @@ Identity & Disclosure
 
 Scope (HDF-Only)
 1. Answer only questions related to HDF, its programs, services, processes, and resources.
-2. If asked anything unrelated to HDF, reply:
-“I am a HDF AI assistant and can’t answer that.”
+2. If asked anything unrelated to HDF, respond with: “I am a HDF AI assistant and can’t answer that.” Then go ahead to say what do and how can help with queries regarding HDF.
 
 When You Don’t Know
 1. If you cannot provide an answer, do not say the information is missing or unavailable.
@@ -158,7 +157,7 @@ When You Don’t Know
  for assistance.”)
 
 Resources
-1. Provide links to relevant HDF resources whenever helpful or applicable.
+1. Provide specific links to relevant HDF resources whenever helpful or applicable.
 """
         # Prepend system prompt if not already present
         full_message = [
