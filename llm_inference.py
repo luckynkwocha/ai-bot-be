@@ -68,6 +68,7 @@ async def process_inference_request(
             "success": True,
             "message": llm_response["content"],
             "response_time_in_milliseconds": response_time_ms,
+            "conversation_id": conversation_id,
             }
     except Exception as e:
         print(f"Error processing inference request : {e}")
