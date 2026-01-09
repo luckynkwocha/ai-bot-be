@@ -36,7 +36,7 @@ async def create_new_agent():
     return response
     
 @app.get('/health')
-def home():
+def health():
     return {
         "status": "ok",
         "message": "HDF AI Assistant is running"
