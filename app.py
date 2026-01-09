@@ -94,4 +94,7 @@ async def inference():
     return await process_inference_request(request_data, stream=False)
 
 def run_app():
-    app.run(debug=True)
+    if __name__ == '__main__':
+        app.run(debug=True)
+
+run_app()
