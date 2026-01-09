@@ -8,9 +8,12 @@ from pypdf import PdfReader
 from llm_inference import process_inference_request
 from create_new_agent import create_agent
 from llm_service import llm_service
-
+from add_knowledge_base import add_knowledge_base
+from flask_cors import CORS
 
 app = Flask(__name__)
+
+CORS(app)
 
 @app.post('/create_agent')
 async def create_new_agent():
@@ -35,7 +38,31 @@ async def create_new_agent():
     response = await create_agent(knowledge_base, "hdf_collection")
     print(f"Create Agent Response: {response}")
     return response
-    
+
+@app.post('/add_knowledge_base_to_agent')    
+async def add_knowledge_base_to_agent():
+    file = request.files["file"]
+
+# Option A: extract directly from stream (no need to save)
+    try:
+        reader = PdfReader(file.stream)
+
+        pages_text = ""
+        for page in reader.pages:
+            pages_text += "\n" + page.extract_text() or ""
+
+        all_text = "\n\n".join(pages_text).strip()
+
+    except Exception as e:
+        return jsonify({"error": "Failed to read PDF", "details": str(e)}), 500
+
+
+    knowledge = scrape_text("https://hdfund.org/") 
+    knowledge_base = knowledge + "\n\n" + all_text  
+    response = await add_knowledge_base(knowledge_base, "hdf_collection")
+    print(f"Create Agent Response: {response}")
+    return response
+
 @app.get('/health')
 def health():
     return {
@@ -66,5 +93,5 @@ async def inference():
         }  
     return await process_inference_request(request_data, stream=False)
 
-# if __name__ == "__main__":
-#     app.run(debug=True)
+def run_app():
+    app.run(debug=True)
