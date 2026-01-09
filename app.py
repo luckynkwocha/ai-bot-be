@@ -1,13 +1,14 @@
-from flask import Flask, request
 from dotenv import load_dotenv
+load_dotenv()  
+
+from flask import Flask, request
 from web_scraper import scrape_text
 from flask import jsonify
-from conversations import create_conversation
 from pypdf import PdfReader
 from llm_inference import process_inference_request
-load_dotenv()  # loads .env into os.environ
-
 from create_new_agent import create_agent
+from llm_service import llm_service
+
 
 app = Flask(__name__)
 
@@ -56,7 +57,7 @@ async def inference():
     """Generate response using agent embeddings and conversation history"""
     if request_data.get("conversation") is None:
         prompt = request_data.get("prompt", "Hello!")
-        convo = create_conversation(prompt)
+        convo = await llm_service.create_conversation(prompt)
         request_data["conversation"] = convo["conversation_id"]
     if request_data.get("stream"):
         return {
@@ -65,5 +66,5 @@ async def inference():
         }  
     return await process_inference_request(request_data, stream=False)
 
-if __name__ == "__main__":
-    app.run(debug=True)
+# if __name__ == "__main__":
+#     app.run(debug=True)
