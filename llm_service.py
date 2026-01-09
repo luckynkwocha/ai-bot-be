@@ -28,7 +28,6 @@ class LLMService:
         items = [{"type": "message", "role": "user", "content": prompt}]
 
         try:
-            print("key", configs["openai_api_key"])
             conversation = await self.openai_client.conversations.create(
                 items=items
             )
