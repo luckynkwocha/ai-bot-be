@@ -15,7 +15,7 @@ async def process_inference_request(
         collection_name = request_data["collection_name"]
         conversation_id = request_data["conversation"]
 
-        model = request_data.get("model", "gpt-4o")
+        model = request_data.get("model", "gpt-5.1")
         retrieved_docs = []
         message = request_data["message"]
         

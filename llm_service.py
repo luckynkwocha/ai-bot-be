@@ -49,7 +49,7 @@ class LLMService:
     async def generate_response(
         self,
         message: str,
-        model: str = "gpt-4o",
+        model: str = "gpt-5.1",
         temperature: float = 0.5,
         max_tokens: int = 1000,
         stream: bool = False,   
@@ -88,7 +88,7 @@ class LLMService:
     def _is_openai_model(self, model: str) -> bool:
         """Check if model is an OpenAI model"""
         #Add more models as needed
-        openai_models = ["gpt-3.5-turbo", "gpt-4o"]
+        openai_models = ["gpt-5.1"]
         return any(openai_model in model.lower() for openai_model in openai_models)
     
     def _is_claude_model(self, model: str) -> bool:
@@ -176,7 +176,7 @@ You are a **helpful HDF assistant**. Provide **clear, concise, and actionable** 
         ]   
             
         response = await self.openai_client.responses.create(
-            model="gpt-4.1",
+            model="gpt-5.1",
             input=full_message,
             conversation=conversation_id
             )
